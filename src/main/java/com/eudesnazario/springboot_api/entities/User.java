@@ -1,9 +1,15 @@
 package com.eudesnazario.springboot_api.entities;
 
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 
+@Entity
+@Table(name = "tb_user") // renomeado para evitar conflitos com palavra reservada
 public class User implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String email;

@@ -1,11 +1,14 @@
 package com.eudesnazario.springboot_api.entities;
 
 import com.eudesnazario.springboot_api.entities.enums.OrderStatus;
+import com.eudesnazario.springboot_api.entities.pk.OrderItemPK;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_order")
@@ -24,6 +27,9 @@ public class Order implements Serializable {
     @JoinColumn(name = "client_id")
     private User client;
 
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> items = new HashSet<>();
+
     public Order(){}
 
     public Order(Long id, Instant moment,OrderStatus orderStatus, User client) {
@@ -31,6 +37,10 @@ public class Order implements Serializable {
         this.moment = moment;
         this.setOrderStatus(orderStatus);
         this.client = client;
+    }
+
+    public Set<OrderItem> getItens(){
+        return items;
     }
 
     public Long getId() {

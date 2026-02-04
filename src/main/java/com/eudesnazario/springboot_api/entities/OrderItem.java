@@ -15,7 +15,7 @@ public class OrderItem implements Serializable {
 
     @EmbeddedId
     private OrderItemPK id = new OrderItemPK();
-    private Integer quantitiy;
+    private Integer quantity;
     private Double price;
 
 
@@ -23,11 +23,11 @@ public class OrderItem implements Serializable {
 
     }
 
-    public OrderItem(Order order, Product product, Integer quantitiy, Double price) {
+    public OrderItem(Order order, Product product, Integer quantity, Double price) {
         id.setOrder(order);
         id.setProduct(product);
         this.price = price;
-        this.quantitiy = quantitiy;
+        this.quantity = quantity;
     }
 
     @JsonIgnore
@@ -35,10 +35,13 @@ public class OrderItem implements Serializable {
         return id.getOrder();
     }
 
+    public Double getSubTotal(){
+        return price * quantity;
+    }
+
     public void setOrder(Order order){
         id.setOrder(order);
     }
-
 
     public Product getProduct(){
         return id.getProduct();
@@ -48,12 +51,12 @@ public class OrderItem implements Serializable {
         id.setProduct(product);
     }
 
-    public Integer getQuantitiy() {
-        return quantitiy;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setQuantitiy(Integer quantitiy) {
-        this.quantitiy = quantitiy;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public Double getPrice() {
